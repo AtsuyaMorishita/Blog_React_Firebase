@@ -9,14 +9,17 @@ import { useState } from "react";
 
 function App() {
   //ログイン状態を管理
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
 
   return (
     <Router>
       <Navbar isAuth={isAuth} />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/createpost" element={<CreatePost />}></Route>
+        <Route
+          path="/createpost"
+          element={<CreatePost isAuth={isAuth} />}
+        ></Route>
         <Route path="/login" element={<Login setIsAuth={setIsAuth} />}></Route>
         <Route
           path="/logout"

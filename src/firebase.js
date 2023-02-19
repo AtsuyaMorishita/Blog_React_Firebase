@@ -11,10 +11,16 @@ const firebaseConfig = {
   appId: "1:1003754886192:web:0b67e6c0eb9b827c4cc9f5",
 };
 
+//firebaseの初期化
 const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app); //認証の初期化
-const provider = new GoogleAuthProvider(); //インスタンス化
+//認証の初期化
+const auth = getAuth(app);
+
+//インスタンス化
+const provider = new GoogleAuthProvider();
+
+//Cloud Firestoreの初期化
 const db = getFirestore(app);
 
 export { auth, provider, db };

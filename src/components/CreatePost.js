@@ -1,15 +1,16 @@
 import { addDoc, collection } from "firebase/firestore";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
 import "./CreatePost.css";
 
-const CreatePost = () => {
+const CreatePost = ({ isAuth }) => {
   const [title, setTitle] = useState();
   const [postText, setPostText] = useState();
 
   const navigate = useNavigate();
 
+  //記事を投稿してFirestoreに保存する
   const createPost = async () => {
     await addDoc(collection(db, "posts"), {
       title: title,
@@ -19,9 +20,15 @@ const CreatePost = () => {
         id: auth.currentUser.uid,
       },
     });
-
     navigate("/");
   };
+
+  //未ログイン状態でのアクセスはログイン画面へリダイレクト
+  useEffect(() => {
+    if (!isAuth) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <div className="createPostPage">
